@@ -1,0 +1,11 @@
+services:
+  postgres:
+    image: 'postgres:latest'
+    environment:
+      - POSTGRES_DB=moneyflow_db
+      - POSTGRES_USER=superUser
+      - POSTGRES_PASSWORD=secret
+    ports:
+      - '3000:5432'
+    expose:
+      - '3000'
