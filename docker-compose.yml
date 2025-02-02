@@ -1,0 +1,27 @@
+services:
+  app:
+    build: .
+    ports:
+      - '8080:8080'
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/moneyflow_db
+      - SPRING_DATASOURCE_USERNAME=superUser
+      - SPRING_DATASOURCE_PASSWORD=secret
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: moneyflow_db
+      POSTGRES_USER: superUser
+      POSTGRES_PASSWORD: secret
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
