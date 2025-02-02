@@ -1,5 +1,6 @@
 package api.moneyflow.user.payload;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 
@@ -10,6 +11,7 @@ public record UserRequestPayload(
         String name,
 
         @NotBlank(message = "Email is required")
+        @Email(message = "Invalid email address")
         String email,
 
         @NotBlank(message = "Password is required")
