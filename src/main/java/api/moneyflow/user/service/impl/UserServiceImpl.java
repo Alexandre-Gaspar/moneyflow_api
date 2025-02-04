@@ -3,8 +3,8 @@ package api.moneyflow.user.service.impl;
 import api.moneyflow.commom.exception.UserAlreadyExistsException;
 import api.moneyflow.commom.exception.UserNotFoundException;
 import api.moneyflow.user.controller.converters.UserConverter;
-import api.moneyflow.user.payload.UserRequestPayload;
-import api.moneyflow.user.payload.UserResponsePayload;
+import api.moneyflow.user.payload.UserRequest;
+import api.moneyflow.user.payload.UserResponse;
 import api.moneyflow.user.repository.UserRepository;
 import api.moneyflow.user.service.UserService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -24,7 +24,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserResponsePayload create(UserRequestPayload payload) {
+    public UserResponse create(UserRequest payload) {
         if (repository.existsByEmail(payload.email()) ) throw new UserAlreadyExistsException(payload.email());
 
         var user = UserConverter.toEntity(payload);
@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserResponsePayload getByEmail(String email) {
+    public UserResponse getByEmail(String email) {
         var user = repository.findByEmail(email);
 
         if (user == null) throw new UserNotFoundException(email);
@@ -44,14 +44,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserResponsePayload> getAll() {
+    public List<UserResponse> getAll() {
         return repository.findAll().stream()
                 .map(UserConverter::toDto)
                 .toList();
     }
 
     @Override
-    public UserResponsePayload update(UUID userId, UserRequestPayload payload) {
+    public UserResponse update(UUID userId, UserRequest payload) {
         return repository.findById(userId).map(user -> {
             var updatedUser = UserConverter.updateFromUser(user, payload);
             var savedUser = repository.save(updatedUser);
@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserResponsePayload getById(UUID userId) {
+    public UserResponse getById(UUID userId) {
         return repository.findById(userId)
                 .map(UserConverter::toDto)
                 .orElseThrow(() -> new UserNotFoundException(userId));

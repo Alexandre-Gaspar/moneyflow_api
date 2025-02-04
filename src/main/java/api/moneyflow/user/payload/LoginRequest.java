@@ -2,7 +2,7 @@ package api.moneyflow.user.payload;
 
 import jakarta.validation.constraints.NotBlank;
 
-public record LoginRequestPayload(
+public record LoginRequest(
         @NotBlank(message = "Email is required")
         String email,
         @NotBlank(message = "Password is required")

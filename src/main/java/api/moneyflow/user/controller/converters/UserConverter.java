@@ -1,11 +1,13 @@
 package api.moneyflow.user.controller.converters;
 
 import api.moneyflow.user.User;
-import api.moneyflow.user.payload.UserRequestPayload;
-import api.moneyflow.user.payload.UserResponsePayload;
+import api.moneyflow.user.payload.UserRequest;
+import api.moneyflow.user.payload.UserResponse;
 
 public class UserConverter {
-    public static User toEntity(UserRequestPayload payload) {
+    private UserConverter() {}
+
+    public static User toEntity(UserRequest payload) {
         User newUser = new User();
         newUser.setName(payload.name());
         newUser.setEmail(payload.email());
@@ -14,7 +16,7 @@ public class UserConverter {
         return newUser;
     }
 
-    public static User fromResponseToEntity(UserResponsePayload payload) {
+    public static User fromResponseToEntity(UserResponse payload) {
         User newUser = new User();
         newUser.setId(payload.id());
         newUser.setName(payload.name());
@@ -23,8 +25,8 @@ public class UserConverter {
         return newUser;
     }
 
-    public static UserResponsePayload toDto(User user) {
-        return new UserResponsePayload(
+    public static UserResponse toDto(User user) {
+        return new UserResponse(
                 user.getId(),
                 user.getName(),
                 user.getEmail(),
@@ -32,7 +34,7 @@ public class UserConverter {
         );
     }
 
-    public static User updateFromUser(User fetchedUser, UserRequestPayload payload) {
+    public static User updateFromUser(User fetchedUser, UserRequest payload) {
         fetchedUser.setName(payload.name());
         fetchedUser.setEmail(payload.email());
         fetchedUser.setBalance(payload.balance());

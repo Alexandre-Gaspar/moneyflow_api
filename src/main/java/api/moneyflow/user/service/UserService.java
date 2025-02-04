@@ -1,19 +1,19 @@
 package api.moneyflow.user.service;
 
-import api.moneyflow.user.payload.UserRequestPayload;
-import api.moneyflow.user.payload.UserResponsePayload;
+import api.moneyflow.user.payload.UserRequest;
+import api.moneyflow.user.payload.UserResponse;
 
 import java.util.List;
 import java.util.UUID;
 
 public interface UserService {
-    UserResponsePayload create(UserRequestPayload payload);
+    UserResponse create(UserRequest payload);
 
-    UserResponsePayload getByEmail(String email);
+    UserResponse getByEmail(String email);
 
-    List<UserResponsePayload> getAll();
+    List<UserResponse> getAll();
 
-    UserResponsePayload update(UUID userId, UserRequestPayload payload);
+    UserResponse update(UUID userId, UserRequest payload);
 
-    UserResponsePayload getById(UUID userId);
+    UserResponse getById(UUID userId);
 }

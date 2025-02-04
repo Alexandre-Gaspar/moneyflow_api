@@ -1,8 +1,12 @@
 package api.moneyflow.user.controller;
 
-import api.moneyflow.user.payload.LoginRequestPayload;
-import api.moneyflow.user.payload.LoginResponsePayload;
+import api.moneyflow.user.payload.LoginRequest;
+import api.moneyflow.user.payload.LoginResponse;
 import api.moneyflow.user.repository.UserRepository;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -19,6 +23,8 @@ import java.time.Instant;
 
 @RestController
 @RequestMapping("/login")
+//@SecurityRequirement(name = SecurityConfig.AUTHORIZATION_HEADER)
+@Tag(name = "login", description = "Endpoint for login")
 public class TokenController {
     private final UserRepository userRepository;
     private final JwtEncoder jwtEncoder;
@@ -30,8 +36,14 @@ public class TokenController {
         this.passwordEncoder = passwordEncoder;
     }
 
+    @Operation(summary = "Authenticate user and return JWT token", description = "Validates user credentials and returns a JWT token if successful.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Login successful, JWT token returned"),
+            @ApiResponse(responseCode = "400", description = "Invalid request format or missing fields"),
+            @ApiResponse(responseCode = "401", description = "Invalid email or password")
+    })
     @PostMapping
-    public ResponseEntity<LoginResponsePayload> login(@RequestBody @Valid LoginRequestPayload payload) {
+    public ResponseEntity<LoginResponse> login(@RequestBody @Valid LoginRequest payload) {
         var user = userRepository.findByEmail(payload.email());
 
         if (user == null || !isLoginCorrect(payload.email(), payload.password())) {
@@ -50,7 +62,7 @@ public class TokenController {
 
         var jwtValue = jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
 
-        return ResponseEntity.ok().body(new LoginResponsePayload(jwtValue));
+        return ResponseEntity.ok().body(new LoginResponse(jwtValue));
     }
 
     private boolean isLoginCorrect(String email, String password) {
