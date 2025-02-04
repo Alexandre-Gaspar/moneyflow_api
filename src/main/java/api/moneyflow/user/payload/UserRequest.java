@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Positive;
 
 import java.math.BigDecimal;
 
-public record UserRequestPayload(
+public record UserRequest(
         @NotBlank(message = "Name is required")
         String name,
 

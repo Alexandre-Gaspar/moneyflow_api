@@ -8,9 +8,17 @@ import java.math.BigDecimal;
 import static api.moneyflow.expense.specification.ExpenseSpecs.*;
 
 public class ExpenseQueryFilter {
+
+   // @Parameter(description = "Filter expense by description")
     private String description;
+
+    //@Parameter(description = "Filter expense by category")
     private String category;
+
+    //@Parameter(description = "Filter expense by minimum amount")
     private BigDecimal minAmount;
+
+    //@Parameter(description = "Filter expense by maximum amount")
     private BigDecimal maxAmount;
 
     public Specification<Expense> toSpecification() {

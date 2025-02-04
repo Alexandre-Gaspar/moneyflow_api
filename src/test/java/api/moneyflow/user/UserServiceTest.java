@@ -2,7 +2,7 @@ package api.moneyflow.user;
 
 import api.moneyflow.commom.exception.UserAlreadyExistsException;
 import api.moneyflow.commom.exception.UserNotFoundException;
-import api.moneyflow.user.payload.UserRequestPayload;
+import api.moneyflow.user.payload.UserRequest;
 import api.moneyflow.user.repository.UserRepository;
 import api.moneyflow.user.service.impl.UserServiceImpl;
 import org.junit.jupiter.api.DisplayName;
@@ -57,7 +57,7 @@ public class UserServiceTest {
             );
 
             doReturn(user).when(userRepository).save(userCaptor.capture());
-            var request = new UserRequestPayload(
+            var request = new UserRequest(
                     "Joe Doe",
                     "joe@doe",
                     "123456",
@@ -76,7 +76,7 @@ public class UserServiceTest {
         @DisplayName("Should throw exception when user already exists")
         void shouldThrowExceptionWhenUserAlreadyExists() {
             doReturn(true).when(userRepository).existsByEmail("joe@doe.com");
-            var request = new UserRequestPayload(
+            var request = new UserRequest(
                     "Joe Doe",
                     "joe@doe.com",
                     "123456",
@@ -177,7 +177,7 @@ public class UserServiceTest {
             assertNotNull(user);
 
             doReturn(user).when(userRepository).save(userCaptor.capture());
-            var request = new UserRequestPayload(
+            var request = new UserRequest(
                     "John Doe",
                     "joe@doe.com",
                     "123456",
@@ -198,7 +198,7 @@ public class UserServiceTest {
             var randomUUID = UUID.randomUUID();
             doReturn(Optional.empty()).when(userRepository).findById(randomUUID);
 
-            var request = new UserRequestPayload(
+            var request = new UserRequest(
                     "John Doe",
                     "joe@doe.com",
                     "123456",
