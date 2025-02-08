@@ -1,5 +1,6 @@
-package api.moneyflow.expense.payload;
+package api.moneyflow.transaction.payload;
 
+import api.moneyflow.transaction.enums.TransactionType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -7,7 +8,7 @@ import jakarta.validation.constraints.Positive;
 import java.math.BigDecimal;
 import java.util.UUID;
 
-public record ExpenseRequest (
+public record TransactionRequest(
         @Positive
         @NotNull(message = "Value is required")
         BigDecimal amount,
@@ -19,6 +20,9 @@ public record ExpenseRequest (
         UUID userId,
 
         @NotNull(message = "Category id is required")
-        Long categoryId
+        Long categoryId,
+
+        @NotNull(message = "Transaction type is required")
+        TransactionType type
 ){
 }

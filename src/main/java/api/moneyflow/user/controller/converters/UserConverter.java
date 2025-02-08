@@ -12,7 +12,6 @@ public class UserConverter {
         newUser.setName(payload.name());
         newUser.setEmail(payload.email());
         newUser.setPassword(payload.password());
-        newUser.setBalance(payload.balance());
         return newUser;
     }
 
@@ -21,7 +20,6 @@ public class UserConverter {
         newUser.setId(payload.id());
         newUser.setName(payload.name());
         newUser.setEmail(payload.email());
-        newUser.setBalance(payload.balance());
         return newUser;
     }
 
@@ -29,15 +27,13 @@ public class UserConverter {
         return new UserResponse(
                 user.getId(),
                 user.getName(),
-                user.getEmail(),
-                user.getBalance()
+                user.getEmail()
         );
     }
 
     public static User updateFromUser(User fetchedUser, UserRequest payload) {
         fetchedUser.setName(payload.name());
         fetchedUser.setEmail(payload.email());
-        fetchedUser.setBalance(payload.balance());
 
         return fetchedUser;
     }

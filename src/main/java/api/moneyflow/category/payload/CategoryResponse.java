@@ -1,7 +1,10 @@
 package api.moneyflow.category.payload;
 
+import java.math.BigDecimal;
+
 public record CategoryResponse(
         Long id,
-        String name
+        String name,
+        BigDecimal spendingLimit
 ) {
 }

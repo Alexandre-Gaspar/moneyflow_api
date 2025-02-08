@@ -1,31 +1,37 @@
-package api.moneyflow.expense.queryfilter;
+package api.moneyflow.transaction.queryfilter;
 
-import api.moneyflow.expense.Expense;
+import api.moneyflow.transaction.Transaction;
+import api.moneyflow.transaction.enums.TransactionType;
+import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.data.jpa.domain.Specification;
 
 import java.math.BigDecimal;
 
-import static api.moneyflow.expense.specification.ExpenseSpecs.*;
+import static api.moneyflow.transaction.specification.TransactionSpecs.*;
 
-public class ExpenseQueryFilter {
+public class TransactionQueryFilter {
 
-   // @Parameter(description = "Filter expense by description")
+    @Parameter(description = "Filter transaction by description")
     private String description;
 
-    //@Parameter(description = "Filter expense by category")
+    @Parameter(description = "Filter transaction by category")
     private String category;
 
-    //@Parameter(description = "Filter expense by minimum amount")
+    @Parameter(description = "Filter transaction by minimum amount")
     private BigDecimal minAmount;
 
-    //@Parameter(description = "Filter expense by maximum amount")
+    @Parameter(description = "Filter transaction by maximum amount")
     private BigDecimal maxAmount;
 
-    public Specification<Expense> toSpecification() {
+    @Parameter(description = "Filter transaction by transaction type")
+    private TransactionType type;
+
+    public Specification<Transaction> toSpecification() {
         return filterByDescription(description)
                 .and(filterByAmountGreaterThenOrEqualTo(minAmount))
                 .and(filterByAmountLessThenOrEqualTo(maxAmount))
-                .and(filterByCategory(category));
+                .and(filterByCategory(category))
+                .and(filterByType(type));
     }
 
     public String getDescription() {
@@ -58,5 +64,13 @@ public class ExpenseQueryFilter {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public TransactionType getType() {
+        return type;
+    }
+
+    public void setType(TransactionType type) {
+        this.type = type;
     }
 }

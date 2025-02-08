@@ -2,9 +2,6 @@ package api.moneyflow.user.payload;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Positive;
-
-import java.math.BigDecimal;
 
 public record UserRequest(
         @NotBlank(message = "Name is required")
@@ -15,9 +12,6 @@ public record UserRequest(
         String email,
 
         @NotBlank(message = "Password is required")
-        String password,
-
-        @Positive(message = "Balance must be positive")
-        BigDecimal balance
+        String password
 ) {
 }
