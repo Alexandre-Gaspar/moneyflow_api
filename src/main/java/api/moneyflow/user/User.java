@@ -2,7 +2,6 @@ package api.moneyflow.user;
 
 import jakarta.persistence.*;
 
-import java.math.BigDecimal;
 import java.util.UUID;
 
 @Entity
@@ -21,17 +20,13 @@ public class User {
     @Column(nullable = false, length = 255)
     private String password;
 
-    @Column(precision = 10, scale = 2)
-    private BigDecimal balance;
-
     public User() {}
 
-    public User(UUID id, String name, String email, String password, BigDecimal balance) {
+    public User(UUID id, String name, String email, String password) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
-        this.balance = balance;
     }
 
     public UUID getId() {
@@ -64,13 +59,5 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public BigDecimal getBalance() {
-        return balance;
-    }
-
-    public void setBalance(BigDecimal balance) {
-        this.balance = balance;
     }
 }

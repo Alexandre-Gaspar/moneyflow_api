@@ -44,7 +44,8 @@ public class SpringDocConfig {
                 )
                 .servers(List.of(
                         new Server().url("https://api-moneyflow.up.railway.app").description("Production"),
-                        new Server().url("http://localhost:8081").description("Development")
+                        new Server().url("http://localhost:8080").description("Development"),
+                        new Server().url("http://localhost:8081").description("Test")
                 ));
     }
 }

@@ -17,7 +17,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -52,16 +51,14 @@ public class UserServiceTest {
                     UUID.randomUUID(),
                     "Joe Doe",
                     "joe@doe",
-                    passwordEncoder.encode("123456"),
-                    BigDecimal.valueOf(29.90)
+                    passwordEncoder.encode("123456")
             );
 
             doReturn(user).when(userRepository).save(userCaptor.capture());
             var request = new UserRequest(
                     "Joe Doe",
                     "joe@doe",
-                    "123456",
-                    BigDecimal.valueOf(29.90)
+                    "123456"
             );
 
             var response = userService.create(request);
@@ -69,7 +66,6 @@ public class UserServiceTest {
             assertNotNull(response);
             assertEquals(request.name(), userCaptor.getValue().getName());
             assertEquals(request.email(), userCaptor.getValue().getEmail());
-            assertEquals(request.balance(), userCaptor.getValue().getBalance());
         }
 
         @Test
@@ -79,8 +75,7 @@ public class UserServiceTest {
             var request = new UserRequest(
                     "Joe Doe",
                     "joe@doe.com",
-                    "123456",
-                    BigDecimal.valueOf(29.90)
+                    "123456"
             );
 
             assertThrows(UserAlreadyExistsException.class, () -> userService.create(request));
@@ -99,8 +94,7 @@ public class UserServiceTest {
                     UUID.randomUUID(),
                     "Joe Doe",
                     "joe@doe.com",
-                    passwordEncoder.encode("123456"),
-                    BigDecimal.valueOf(29.90)
+                    passwordEncoder.encode("123456")
             );
 
             doReturn(user).when(userRepository).findByEmail(user.getEmail());
@@ -111,7 +105,6 @@ public class UserServiceTest {
             assertEquals(user.getId(), response.id());
             assertEquals(user.getName(), response.name());
             assertEquals(user.getEmail(), response.email());
-            assertEquals(user.getBalance(), response.balance());
         }
 
         @Test
@@ -136,15 +129,13 @@ public class UserServiceTest {
                             UUID.randomUUID(),
                             "Joe Doe",
                             "joe@doe.com",
-                            passwordEncoder.encode("123456"),
-                            BigDecimal.valueOf(29.90)
+                            passwordEncoder.encode("123456")
                     ),
                     new User(
                             UUID.randomUUID(),
                             "John Doe",
                             "john@doe.com",
-                            passwordEncoder.encode("123456"),
-                            BigDecimal.valueOf(29.90)
+                            passwordEncoder.encode("123456")
                     )
             );
 
@@ -168,8 +159,7 @@ public class UserServiceTest {
                     UUID.randomUUID(),
                     "Joe Doe",
                     "joe@doe.com",
-                    passwordEncoder.encode("123456"),
-                    BigDecimal.valueOf(29.90)
+                    passwordEncoder.encode("123456")
             );
 
             doReturn(Optional.of(user)).when(userRepository).findById(user.getId());
@@ -180,8 +170,7 @@ public class UserServiceTest {
             var request = new UserRequest(
                     "John Doe",
                     "joe@doe.com",
-                    "123456",
-                    BigDecimal.valueOf(29.90)
+                    "123456"
             );
 
             var response = userService.update(user.getId(), request);
@@ -189,7 +178,6 @@ public class UserServiceTest {
             assertNotNull(response);
             assertEquals(request.name(), userCaptor.getValue().getName());
             assertEquals(request.email(), userCaptor.getValue().getEmail());
-            assertEquals(request.balance(), userCaptor.getValue().getBalance());
         }
 
         @Test
@@ -201,8 +189,7 @@ public class UserServiceTest {
             var request = new UserRequest(
                     "John Doe",
                     "joe@doe.com",
-                    "123456",
-                    BigDecimal.valueOf(29.90)
+                    "123456"
             );
 
             assertThrows(UserNotFoundException.class, () -> userService.update(randomUUID, request));
@@ -221,8 +208,7 @@ public class UserServiceTest {
                     UUID.randomUUID(),
                     "Joe Doe",
                     "joe@doe",
-                    passwordEncoder.encode("123456"),
-                    BigDecimal.valueOf(29.90)
+                    passwordEncoder.encode("123456")
             );
 
             doReturn(Optional.of(user)).when(userRepository).findById(user.getId());
@@ -233,7 +219,6 @@ public class UserServiceTest {
             assertEquals(user.getId(), response.id());
             assertEquals(user.getName(), response.name());
             assertEquals(user.getEmail(), response.email());
-            assertEquals(user.getBalance(), response.balance());
         }
 
         @Test
