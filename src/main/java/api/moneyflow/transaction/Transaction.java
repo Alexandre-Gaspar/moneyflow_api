@@ -29,7 +29,7 @@ public class Transaction {
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id", nullable = false)
+    @JoinColumn(name = "category_id") // TODO : ADD CONSTRAINT
     private Category category;
 
     private String description;

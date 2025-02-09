@@ -19,7 +19,7 @@ public record TransactionRequest(
         @NotNull(message = "User id is required")
         UUID userId,
 
-        @NotNull(message = "Category id is required")
+        //@NotNull(message = "Category id is required")
         Long categoryId,
 
         @NotNull(message = "Transaction type is required")
