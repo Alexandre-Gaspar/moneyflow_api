@@ -9,7 +9,7 @@ public record TransactionResponse(
         BigDecimal amount,
         String description,
         UUID userId,
-        Long categoryID,
+        //Long categoryID,
         String type,
         LocalDateTime date
 ){

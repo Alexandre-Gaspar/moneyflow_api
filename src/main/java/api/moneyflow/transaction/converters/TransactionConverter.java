@@ -14,7 +14,7 @@ public class TransactionConverter {
                 transaction.getAmount(),
                 transaction.getDescription(),
                 transaction.getUser().getId(),
-                transaction.getCategory().getId(),
+                //transaction.getCategory().getId(),
                 transaction.getType().toString(),
                 transaction.getDate()
         );
